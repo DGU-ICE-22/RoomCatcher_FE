@@ -1,0 +1,152 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper {
+    width: 540px;
+    height: 960px;
+    border-radius: 20px;
+    border: 1px solid #AACDFF;
+    box-shadow: 7px 7px 39px 0px #0068FF40;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+h3 {
+    width: 380px;
+    height: 47px;
+    font-family: Noto Sans CJK KR;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 47px;
+    letter-spacing: 0em;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #0068FF;
+}
+
+.inputbox {
+    width: 380px;
+    height: 60px;
+    border-radius: 7px;
+    border: 1px solid #d2d2d2;
+    padding: 18px;
+    margin-top: 20px;
+}
+
+.inputbox::placeholder {
+    color: #797979;
+    font-size: 16px;
+}
+
+.wrapper__phone {
+    width: 380px;
+    height: 40px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.phoneNum {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #d2d2d2;
+    border-radius: 7px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.wrapper__token {
+    width: 380px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.token {
+    color: #0068FF;
+    font-size: 18px;
+}
+
+#token__button {
+    width: 120px;
+    height: 40px;
+    border-radius: 7px;
+    margin-left: 20px;
+    border: 1px solid #d2d2d2;
+    font-size: 16px;
+}
+
+.token__timer {
+    color: #0068FF;
+    font-size: 18px;
+}
+
+#token__timer__finish {
+    width: 120px;
+    height: 40px;
+    border-radius: 7px;
+    margin-left: 20px;
+    border: 1px solid #d2d2d2;
+    font-size: 16px;
+}
+
+.location {
+    margin-top: 20px;
+    width: 380px;
+    height: 60px;
+    border-radius: 7px;
+    border: 1px solid #d2d2d2;
+    font-size: 16px;
+    padding: 18px;
+    color: #797979
+}
+
+.wrapper__gender {
+    width: 380px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.gender {
+    width: 70px;
+    text-align: center;
+}
+
+hr {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: 1px solid #e6e6e6;
+    width: 380px;
+}
+
+#signup__button {
+    width: 380px;
+    height: 75px;
+    border: 1px solid #d2d2d2;
+    border-radius: 10px;
+    font-size: 18px;
+}
