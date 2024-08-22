@@ -39,6 +39,11 @@ function Login() {
             <input type="text" placeholder="Name" />
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
+            <div className="identity-inputs">
+              <input type="YYMMDD" placeholder="YYMMDD" id="생년월일"/>
+              <span style={{fontSize : "20px"}}>-</span>
+              <input type="password" placeholder="*" title="주민등록번호 7번째 자리를 입력하세요." id="주민번호앞자리"/>
+            </div>
             <button type="submit" onClick={handleSignUpClick}>Sign Up</button>
           </form>
         </div>
@@ -50,21 +55,16 @@ function Login() {
 
             {/* 소셜 미디어 로그인 버튼 컨테이너 */}
             <div className="social-container">
-              <button className="social"><i className="fab fa-facebook-f"></i></button>
-              <button className="social"><i className="fab fa-google-plus-g"></i></button>
-              <button className="social"><i className="fab fa-linkedin-in"></i></button>
+              <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
+              <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
+              <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
             </div>
 
             <span>or use your account</span>
 
             {/* 이메일, 비밀번호, 주민번호 입력 필드 */}
-            <div className="identity-inputs">
-              <input type="email" placeholder="이메일" />
-              <input type="password" placeholder="비밀번호"/>
-              <input type="YYMMDD" placeholder="YYMMDD" id="생년월일"/>
-              <span style={{fontSize : "20px"}}> - </span>
-              <input type="password" placeholder="*" title="주민등록번호 7번째 자리를 입력하세요." id="주민번호앞자리"/>
-            </div>
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password"/>
             <br></br>
             <button type="submit" onClick={handleSignInClick}>Sign In</button>
           </form>

@@ -89,15 +89,25 @@ input {
 	width: 100%;
 }
 
+.identity-inputs {
+    display: flex;
+    justify-content: flex-end; /* 왼쪽 정렬 */
+    width: 100%; /* 컨테이너의 전체 너비 사용 */
+		align-items: baseline; /* 아이템들을 기준선에 맞춰 정렬 */
+    margin-bottom: 15px; /* 필드들 아래에 여백 추가 */
+}
+
+
 
 #생년월일, #주민번호앞자리 {
-  width: auto;
-  flex-grow: 1;
+    width: auto; /* 각 input 필드의 너비를 자동으로 설정 */
+    flex-grow: 1; /* 사용 가능한 공간을 균등하게 분배 */
 }
 
 #주민번호앞자리 {
-  width: 25%;
+	width: 20%;
 }
+
 
 
 .container {
