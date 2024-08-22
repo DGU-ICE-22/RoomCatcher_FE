@@ -1,24 +1,34 @@
-import logo from './logo.svg';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login.js';
+import Login from './pages/Login';
 import MyPage from './pages/MyPage';
-import ChatBot from './components/ChatBot';
+import ChatBot from './components/ChatBot/ChatBot';
 import CustomListings from './components/CustomListings';
-import AnalyticsReport from './components/AnalyticsReport'
+import AnalyticsReport from './components/AnalyticsReport';
+
 
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <Router>
+      <div className="App">
+        {/* <Routes>
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/chatbot" element={<ChatBot />} />
+          <Route path="/listings" element={<CustomListings />} />
+          <Route path="/analytics" element={<AnalyticsReport />} />
+        </Routes> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
 
-      <Login></Login>
-
-
-
-    </div>
+      </div>
+    </Router>
   );
 }
 

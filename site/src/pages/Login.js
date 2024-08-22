@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import '../styles/Login.css';
+import './Login.뭐시기.css';
 import 로고 from '../assets/images/로고.png';
 
 function Login() {
