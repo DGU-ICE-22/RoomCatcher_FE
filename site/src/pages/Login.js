@@ -125,6 +125,11 @@ input {
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
+	margin: auto; /* 중앙 정렬을 위해 추가 */
+  display: flex; /* Flexbox를 사용하여 항목들을 중앙에 정렬 */
+  flex-direction: column; /* 항목들을 수직으로 정렬 */
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
 }
 
 .form-container {
