@@ -6,9 +6,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import 로고 from '../assets/images/로고.png';
+import WelcomeHero from './WelcomeHero';
+import ListTopics from './ListTopics';
+import Works from './Works';
 
 
 function Home() {
+
 
   useEffect(() => {
     const link = document.createElement('link');
@@ -22,6 +26,7 @@ function Home() {
   }, []);
 
   return (
+    <>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
 
@@ -58,6 +63,16 @@ function Home() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      {/* Welcome-Hero */}
+      <WelcomeHero/>
+
+      <ListTopics/>
+
+      <Works/>
+
+
+      </>
   )
 
 }
