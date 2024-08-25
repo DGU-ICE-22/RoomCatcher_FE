@@ -5,7 +5,7 @@ import 카드1 from '../assets/images/카드1.png';
 import 카드2 from '../assets/images/카드2.png';
 import 카드3 from '../assets/images/카드3.png';
 import axios from 'axios';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const WorksStyled = styled.section`
 /* section-header */
@@ -115,7 +115,7 @@ const worksData = [
         iconClass: 카드1,
         title: "내 부동산 유형 분석하기",
         description: " 당신의 생활 스타일과 예산에 맞는 최적의 부동산 유형을 발견하세요.",
-        link: "#"
+        link: "chatbot"
     },
     {
         iconClass: 카드2,
@@ -131,50 +131,67 @@ const worksData = [
     }
 ];
 
-function Works() {
+const Works = () => {
+  const navigate = useNavigate(); // 페이지 네비게이션을 위한 훅 사용
 
-  const history = useNavigate(); // 리디렉션을 위한 history 객체 사용
+  const handleClick = async (work) => {
+    
+      if (work.title === "내 부동산 유형 분석하기") {
+          // 서버에 데이터 전송
+          try {
+              const response = await axios.post('http://127.0.0.1:8001/api/chat', {
+                  request_message: "",
+                  user_name: "5hseok"
+              }
+              ,{
+                headers: {
+                  'Content-Type': 'application/json',
+                  "Authorization": "Bearer a"
+              }
+            }
+            );
+              console.log('Server Response:', response.data);
 
-  const handleClick = async () => {
-    try {
-        const response = await axios.post('https://your-server-url/api', {
-            request_message: "",
-            user_name: "5hseok" //추후에 변동
-        });
-        console.log('Server Response:', response.data);
-        history.push('/chatbot'); // 응답 후 /chatbot 으로 리디렉션
-    } catch (error) {
-        console.error('Error sending data to the server:', error);
-    }
+              setTimeout(() => {
+                navigate(work.link, { state: { responseMessage: response.data } });
+              }, 3000);
+
+          } catch (error) {
+              console.error('Error sending data to the server:', error);
+              return; // 에러가 발생하면 이동하지 않음
+          }
+      }
+      // 해당 링크로 이동
+      navigate(work.link);
   };
 
-    return (
-      <WorksStyled>
-            <section id="works" className="works">
-                <Container>
-                    <div className="section-header">
-                        <h2>Introduction</h2>
-                        <p>Learn more about how our website works</p>
-                    </div>
-                    <div className="works-content">
-                        <Row>
-                            {worksData.map((work, index) => (
-                                <Col md={4} sm={6} key={index}>
-                                    <div className="single-how-works" onClick={index === 0 ? handleClick : undefined}>
-                                        <div className="single-how-works-icon">
-                                            <img src={work.iconClass} alt="work icon"></img>
-                                        </div>
-                                        <h2><a href={work.link}>{work.title}</a></h2>
-                                        <p>{work.description}</p>
-                                    </div>
-                                </Col>
-                            ))}
-                        </Row>
-                    </div>
-                </Container>
-            </section>
-        </WorksStyled>
-    );
+  return (
+    <WorksStyled>
+      <section id="works" className="works">
+          <Container>
+              <div className="section-header">
+                  <h2>Introduction</h2>
+                  <p>Learn more about how our website works</p>
+              </div>
+              <div className="works-content">
+                  <Row>
+                      {worksData.map((work, index) => (
+                          <Col md={4} sm={6} key={index}>
+                              <div className="single-how-works" onClick={() => handleClick(work)}>
+                                  <div className="single-how-works-icon">
+                                      <img src={work.iconClass} alt={`Icon for ${work.title}`}></img>
+                                  </div>
+                                  <h3>{work.title}</h3>
+                                  <p>{work.description}</p>
+                              </div>
+                          </Col>
+                      ))}
+                  </Row>
+              </div>
+          </Container>
+      </section>
+      </WorksStyled>
+  );
 }
 
 export default Works;

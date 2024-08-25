@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const StyledChatBot = styled.div`
   .bubble {
@@ -24,21 +25,20 @@ const StyledChatBot = styled.div`
 `;
 
 function ChatBot() {
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css';
-    document.head.appendChild(link);
-
-    return () => {
-      document.head.removeChild(link);
-    };
-  }, []);
-
+  const location = useLocation();
   const [messages, setMessages] = useState([
-    { id: 1, text: "반갑습니다! 무엇을 도와드릴까요?", sender: "bot" }
+    { id: 1, text: "로딩 중...", sender: "bot" }
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [initialResponse, setInitialResponse] = useState("반갑습니다! 무엇을 도와드릴까요?");
+
+  useEffect(() => {
+    // 상태가 준비되면 메시지 업데이트
+    if (location.state?.responseMessage) {
+      setInitialResponse(location.state.responseMessage.response_message || "반갑습니다! 무엇을 도와드릴까요?");
+      setMessages([{ id: 1, text: location.state.responseMessage.response_message || "반갑습니다! 무엇을 도와드릴까요?", sender: "bot" }]);
+    }
+  }, [location.state]);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -49,7 +49,17 @@ function ChatBot() {
       const newMessage = { id: messages.length + 1, text: inputValue, sender: "user" };
       setMessages([...messages, newMessage]);
       try {
-        const response = await axios.post('https://your-server-url/messages', { message: inputValue });
+        const response = await axios.post('http://127.0.0.1:8001/api/chat', {
+          request_message: inputValue,
+          user_name: "5hseok"
+      }
+      ,{
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer a"
+      }
+    }
+    );
         const reply = { id: messages.length + 2, text: response.data.reply, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, reply]);
       } catch (error) {
