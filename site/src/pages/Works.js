@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import 카드1 from '../assets/images/카드1.png';
 import 카드2 from '../assets/images/카드2.png';
 import 카드3 from '../assets/images/카드3.png';
+import axios from 'axios';
+import {useNavigate } from 'react-router-dom';
 
 const WorksStyled = styled.section`
 /* section-header */
@@ -130,31 +132,47 @@ const worksData = [
 ];
 
 function Works() {
+
+  const history = useNavigate(); // 리디렉션을 위한 history 객체 사용
+
+  const handleClick = async () => {
+    try {
+        const response = await axios.post('https://your-server-url/api', {
+            request_message: "",
+            user_name: "5hseok" //추후에 변동
+        });
+        console.log('Server Response:', response.data);
+        history.push('/chatbot'); // 응답 후 /chatbot 으로 리디렉션
+    } catch (error) {
+        console.error('Error sending data to the server:', error);
+    }
+  };
+
     return (
       <WorksStyled>
-        <section id="works" className="works">
-            <Container>
-                <div className="section-header">
-                    <h2>Introduction</h2>
-                    <p>Learn more about how our website works</p>
-                </div>
-                <div className="works-content">
-                    <Row>
-                        {worksData.map((work, index) => (
-                            <Col md={4} sm={6} key={index}>
-                                <div className="single-how-works">
-                                    <div className="single-how-works-icon">
-                                        <img src={work.iconClass}></img>
+            <section id="works" className="works">
+                <Container>
+                    <div className="section-header">
+                        <h2>Introduction</h2>
+                        <p>Learn more about how our website works</p>
+                    </div>
+                    <div className="works-content">
+                        <Row>
+                            {worksData.map((work, index) => (
+                                <Col md={4} sm={6} key={index}>
+                                    <div className="single-how-works" onClick={index === 0 ? handleClick : undefined}>
+                                        <div className="single-how-works-icon">
+                                            <img src={work.iconClass} alt="work icon"></img>
+                                        </div>
+                                        <h2><a href={work.link}>{work.title}</a></h2>
+                                        <p>{work.description}</p>
                                     </div>
-                                    <h2><a href={work.link}>{work.title}</a></h2>
-                                    <p>{work.description}</p>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
-                </div>
-            </Container>
-        </section>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
+                </Container>
+            </section>
         </WorksStyled>
     );
 }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
-import ChatBot from './components/ChatBot/ChatBot';
+import ChatBot from './components/ChatBot/ChatBot.js';
 import CustomListings from './components/CustomListings';
 import AnalyticsReport from './components/AnalyticsReport';
 
@@ -26,6 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/mypage" element={<MyPage />} /> */}
+          <Route path="/chatbot" element={<ChatBot />} />
         </Routes>
 
       </div>
