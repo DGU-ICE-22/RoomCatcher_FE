@@ -35,6 +35,8 @@ const StyledChatBot = styled.div`
     padding: 20px;
     flex-grow: 1;
     overflow-y: auto; // 스크롤 가능
+    display: flex;
+    flex-direction: column; // 세로 방향으로 메시지 배열
   }
 
   .bot, .user {
