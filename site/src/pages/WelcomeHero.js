@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { Container, Row, Col, Button, Image, Form } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import bannerImage from '../assets/images/banner.jpg';
 import styled from 'styled-components';
 

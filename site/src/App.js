@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
-import ChatBot from './components/ChatBot/ChatBot.js';
+import ChatBot from './components/ChatBot.js';
 import CustomListings from './components/CustomListings';
 import AnalyticsReport from './components/AnalyticsReport';
 
