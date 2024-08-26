@@ -86,7 +86,7 @@ function WelcomeHero() {
     color:  #fff;
     width:  170px;
     height:  70px;
-    background:  #ff545a;
+    background:  #FA8072;
     text-transform:  capitalize;
     margin-left:  30px;
     border-radius: 3px;

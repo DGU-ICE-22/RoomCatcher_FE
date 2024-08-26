@@ -44,7 +44,7 @@ const WorksStyled = styled.section`
 
     &:hover {
       color: #fff;
-      background: #ff545a;
+      background: #FA8072;
       box-shadow: 0 0px 10px rgba(71, 71, 71, 0.4);
 
       .single-how-works-icon {

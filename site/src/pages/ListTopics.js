@@ -45,7 +45,7 @@ function ListTopics() {
 .single-list-topics-content:hover h2>a,.single-list-topics-content:hover p{color: #fff!important;}
 .single-list-topics-content:hover{
     color: #fff;
-    background:#ff545a;
+    background:#FA8072;
     box-shadow: 0 5px 10px rgba(71,71,71,.4);
 }
 `
