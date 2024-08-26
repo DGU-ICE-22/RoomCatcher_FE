@@ -16,21 +16,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Routes>
-          
-          <Route path="/login" element={<Login />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/listings" element={<CustomListings />} />
-          <Route path="/analytics" element={<AnalyticsReport />} />
-        </Routes> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/mypage" element={<MyPage />} /> */}
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="/chatbot" element={<ChatBot />} />
           <Route path="/loadingchat" element={<LoadingChat />} />
           <Route path="/loading" element={<Loading />} />
+          <Route path="/report" element={<AnalyticsReport />} />
+          <Route path="/listings" element={<CustomListings />} />
         </Routes>
 
       </div>
