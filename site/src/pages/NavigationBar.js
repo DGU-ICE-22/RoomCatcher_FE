@@ -51,7 +51,7 @@ const NavigationBar = () => {
   return (
     <StyledNavigationBar expand="lg">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img src={로고} alt="RoomCatcher Logo" style={{ height: '30px', width: '22px', marginRight: '5px' }} />
             RoomCatcher
           </Navbar.Brand>
@@ -61,7 +61,7 @@ const NavigationBar = () => {
               <Nav.Link href="#intro">소개</Nav.Link>
               <Nav.Link href="#type-description">유형 설명</Nav.Link>
               <Nav.Link href="#subscription-info">청약 정보 글</Nav.Link>
-              <Nav.Link href="#mypage">마이페이지</Nav.Link>
+              <Nav.Link href="mypage">마이페이지</Nav.Link>
               <Nav className="ms-auto">
                 <NavDropdown title="더보기" id="basic-nav-dropdown" alignRight>
                   <NavDropdown.Item href="#favorites">찜한 매물</NavDropdown.Item>
@@ -70,7 +70,7 @@ const NavigationBar = () => {
                   </NavDropdown.Item>
                   <NavDropdown.Item href="#help">도움말</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
+                  <NavDropdown.Item href="login">
                     로그아웃
                   </NavDropdown.Item>
                 </NavDropdown>
