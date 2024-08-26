@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import Spinner from '../assets/images/Spinner.gif';
 import 로고 from '../assets/images/로고.png';
 
+
+
 let Background = styled.div`
-  position: absolute;
+position: absolute;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  background: #ffffffb7;
-  z-index: 999;
+  background: linear-gradient(to right, #eaf4f4, #f7ede2);
+  z-index: -1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,8 +41,8 @@ function Loading() {
   <>
   <LoadingImg><img style={{height: "3rem", marginRight: "1rem"}} src={로고}></img> RoomCatcher</LoadingImg>
   <Background>
-    <LoadingText>잠시만요!<br/><br/>페이지를 이동 중이예요!</LoadingText>
     <img src={Spinner} alt="로딩중" width="10%" />
+    <LoadingText>잠시만요!<br/><br/>페이지를 이동 중이예요!</LoadingText>
   </Background>
   </>
   );

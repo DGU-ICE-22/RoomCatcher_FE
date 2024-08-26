@@ -10,8 +10,8 @@ position: absolute;
   height: 100vh;
   top: 0;
   left: 0;
-  background: #ffffffb7;
-  z-index: 999;
+  background: linear-gradient(to right, #eaf4f4, #f7ede2);
+  z-index: -1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,9 +40,11 @@ function LoadingChat() {
   <>
   <LoadingImg><img style={{height: "3rem", marginRight: "1rem"}} src={로고}></img> RoomCatcher</LoadingImg>
   <Background>
-    <LoadingText>잠시만 기다려 주세요.<br/><br/>OO님의 유형을 분석 중이예요.</LoadingText>
     <img src={Spinner} alt="로딩중" width="10%" />
+    <LoadingText>잠시만 기다려 주세요.<br/><br/>OO님의 유형을 분석 중이예요.</LoadingText>
+
   </Background>
+
   </>
   );
 };
