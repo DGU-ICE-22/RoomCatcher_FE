@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import NavigationBar from '../pages/NavigationBar';
@@ -88,40 +87,57 @@ const StyledChatBot = styled.div`
 `;
 
 function ChatBot() {
-  const location = useLocation();
   const [messages, setMessages] = useState([{ id: 1, text: "로딩 중...", sender: "bot" }]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    if (location.state?.responseMessage) {
-      setMessages([{ id: 1, text: location.state.responseMessage.response_message || "반갑습니다! 무엇을 도와드릴까요?", sender: "bot" }]);
-    }
-  }, [location.state]);
+    const fetchInitialMessage = async () => {
+      try {
+        const response = await axios.post('http://127.0.0.1:8001/api/chat', {
+          request_message: "",
+          user_name: "5hseok"
+        }, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer e"
+          }
+        });
+        setMessages([{ id: 1, text: response.data.response_message || "반갑습니다! 무엇을 도와드릴까요?", sender: "bot" }]);
+      } catch (error) {
+        console.error('There was an error!', error);
+        setMessages([{ id: 1, text: "오류가 발생했습니다.", sender: "bot" }]);
+      }
+    };
+
+    fetchInitialMessage();
+  }, []);  // 종속성 배열을 비워서 컴포넌트 마운트 시 1회만 실행
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
   const handleSend = async () => {
+    setInputValue('');
     if (inputValue.trim()) {
-      const newMessage = { id: messages.length + 1, text: inputValue, sender: "user" };
+      const newMessage = { id: messages.length+1, text: inputValue, sender: "user" };
       setMessages([...messages, newMessage]);
       try {
         const response = await axios.post('http://127.0.0.1:8001/api/chat', {
           request_message: inputValue,
           user_name: "5hseok"
         }, {
+          withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            "Authorization": "Bearer a"
+            "Authorization": "Bearer e"
           }
         });
-        const reply = { id: messages.length + 2, text: response.data.reply, sender: "bot" };
+        const reply = { id: messages.length + 2, text: response.data.response_message, sender: "bot" };
         setMessages(prevMessages => [...prevMessages, reply]);
       } catch (error) {
         console.error('There was an error!', error);
       }
-      setInputValue('');
     }
   };
 

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import 카드1 from '../assets/images/카드1.png';
 import 카드2 from '../assets/images/카드2.png';
 import 카드3 from '../assets/images/카드3.png';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const WorksStyled = styled.section`
@@ -137,32 +136,11 @@ const Works = () => {
   const handleClick = async (work) => {
     
       if (work.title === "내 부동산 유형 분석하기") {
-          // 서버에 데이터 전송
-          try {
-              const response = await axios.post('http://127.0.0.1:8001/api/chat', {
-                  request_message: "",
-                  user_name: "5hseok"
-              }
-              ,{
-                headers: {
-                  'Content-Type': 'application/json',
-                  "Authorization": "Bearer a"
-              }
-            }
-            );
-              console.log('Server Response:', response.data);
-
-              setTimeout(() => {
-                navigate(work.link, { state: { responseMessage: response.data } });
-              }, 3000);
-
-          } catch (error) {
-              console.error('Error sending data to the server:', error);
-              return; // 에러가 발생하면 이동하지 않음
-          }
+        navigate('/chatbot');
       }
-      // 해당 링크로 이동
-      navigate(work.link);
+      else {
+        alert("준비중입니다.");
+      }
   };
 
   return (
@@ -195,3 +173,4 @@ const Works = () => {
 }
 
 export default Works;
+
