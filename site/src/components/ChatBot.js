@@ -8,10 +8,17 @@ const StyledChatBot = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   background: #f5f5f5;
   font-family: sans-serif;
   text-align: center;
+
+  @media (max-width: 600px) {
+  .chat-box {
+    width: 100%;
+    height: auto;
+  }
+}
 
   .chat-box {
     width: 500px;
@@ -44,21 +51,17 @@ const StyledChatBot = styled.div`
     padding: 10px 15px;
     border-radius: 16px;
     align-self: flex-start;
+    background: #f0f0f0; /* Light gray background for bot messages */
+    color: #333; /* Dark text for readability */
+    text-align: left; /* Align text to the left */
   }
 
   .user {
     align-self: flex-end;
-    background: #2979ff;
-    color: #fff;
+    background: #2979ff; /* Blue background for user messages */
+    color: #fff; /* White text for readability */
     border-radius: 16px 16px 0 16px;
-  }
-
-  .bot {
-    align-self: flex-start;
-    background: #f0f0f0;
-    color: #333;
-    padding: 10px 15px;
-    border-radius: 16px 16px 16px 0;
+    text-align: left; /* Align text to the left */
   }
 
   .message-form {
@@ -84,7 +87,12 @@ const StyledChatBot = styled.div`
     color: #fff;
     cursor: pointer;
   }
+
+  .send-button:active {
+  opacity: 0.8;
+}
 `;
+
 
 function ChatBot() {
   const [messages, setMessages] = useState([{ id: 1, text: "로딩 중...", sender: "bot" }]); //채팅창에 표시될 메시지 목록
@@ -168,8 +176,6 @@ function ChatBot() {
 
     <StyledChatBot>
       <div className='chat-box'>
-        <h1>내 부동산 유형 분석하기</h1>
-
         <div className='messages-list'>
           {messages.map(message => (
             <div key={message.id} className={`bubble ${message.sender === 'bot' ? 'bot' : 'user'}`}>
