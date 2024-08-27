@@ -107,7 +107,7 @@ const AnalyticsReport = () => {
               <Tag key={index}>{tag}</Tag>
             ))}
           </div>
-          <Button onClick={() => alert('자세한 매물 보기로 이동!')}>자세한 매물 보기</Button> 
+          <Button onClick={() => alert('자세한 매물 보기로 이동!')}>추천 매물 보러가기</Button> 
         </Content>
       </ReportContainer>
     </>
