@@ -92,15 +92,23 @@ function ChatBot() {
 
   // 메시지를 지정된 간격으로 추가하는 함수
   const addMessageInIntervals = (messagesArray) => {
-    messagesArray.forEach((messageText, index) => {
-      setTimeout(() => {
-        setMessages(prevMessages => [
-          ...prevMessages,
-          { id: prevMessages.length + 1, text: messageText, sender: "bot" }
-        ]);
-      }, index * 2000); // 1초 간격으로 메시지 추가
+    return new Promise(resolve => {
+      messagesArray.forEach((messageText, index) => {
+        setTimeout(() => {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { id: prevMessages.length + 1, text: messageText, sender: "bot" }
+          ]);
+  
+          // 마지막 메시지를 추가한 후에 resolve를 호출
+          if (index === messagesArray.length - 1) {
+            resolve();
+          }
+        }, index * 1000); // 1초 간격으로 메시지 추가
+      });
     });
   };
+  
 
   useEffect(() => {
     async function fetchInitialMessage() {
@@ -128,6 +136,10 @@ function ChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  
+
+  
+
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -148,32 +160,34 @@ function ChatBot() {
             "Authorization": "Bearer e"
           }
         });
+  
+        const fullMessage = response.data.response_message;
+        const splitPoint = fullMessage.indexOf("예를 들어");
+        const firstPart = fullMessage.substring(0, splitPoint).trim();
+        const secondPart = fullMessage.substring(splitPoint).trim();
+  
+        if (splitPoint !== -1) {
+          await addMessageInIntervals([firstPart, secondPart]);
+        } else {
+          // '예를 들어'가 없으면 전체 메시지를 한 번에 출력
+          await addMessageInIntervals([fullMessage]);
+        }
 
+        // 분석 메시지 확인 및 리포트 페이지로 네비게이션
+        if (response.data.response_message.includes("부동산 소비 유형을 알려드리기 위해 분석 중이에요!") && response.data.report_data) {
+          console.log("Navigating with data:", response.data.report_data);  // 디버깅 정보 출력
 
-      const fullMessage = response.data.response_message;
-      const splitPoint = fullMessage.indexOf("예를 들어,");
-      const firstPart = fullMessage.substring(0, splitPoint).trim();
-      const secondPart = fullMessage.substring(splitPoint).trim();
-
-      if (splitPoint !== -1) {
-        addMessageInIntervals([firstPart, secondPart]);
-      } else {
-        // '예를 들어,'가 없으면 전체 메시지를 한 번에 출력
-        addMessageInIntervals([fullMessage]);
+          navigate('/report', {state: {reportData: response.data.report_data}});
+        }
+  
+      } catch (error) {
+        console.error('There was an error!', error);
+        setMessages(messages => [...messages, { id: messages.length + 1, text: "오류가 발생했습니다.", sender: "bot" }]);
       }
-
-      // 분석 메시지 확인 및 리포트 페이지로 네비게이션
-      if (response.data.response_message.includes("부동산 소비 유형을 알려드리기 위해 분석 중이에요!") && response.data.report_data) {
-        console.log("Navigating with data:", response.data.report_data);  // 디버깅 정보 출력
-        navigate('/report', {state: {reportData: response.data.report_data}});
-      }
-
-    } catch (error) {
-      console.error('There was an error!', error);
-      setMessages(messages => [...messages, { id: messages.length + 1, text: "오류가 발생했습니다.", sender: "bot" }]);
-    }
     }
   };
+
+
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
