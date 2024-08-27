@@ -41,7 +41,7 @@ const Button = styled.button`
 `;
 
 const AnalyticsReport = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState({ // 서버에서 받는 data를 관리하도록 설정
     userTypeName: "",
     userTypeExplain: "",
     user_tags: []
@@ -55,6 +55,7 @@ const AnalyticsReport = () => {
       };
 
       try {
+        // 여기 주소 잘못됐으면 수정하셈, 요청 헤더에 Content-Type과 AccessToken이 포함.
         const response = await axios.get('http://127.0.0.1:8000/api/report/?content', { headers });
         setData(response.data);
       } catch (error) {
@@ -73,11 +74,11 @@ const AnalyticsReport = () => {
         <Content>
           <p>{data.userTypeExplain}</p>
           <div>
-            {data.user_tags.map((tag, index) => (
+            {data.user_tags.map((tag, index) => ( //user_tags 배열을 순회하면서 Tap 컴포넌트로 랜더링
               <Tag key={index}>{tag}</Tag>
             ))}
           </div>
-          <Button onClick={() => alert('자세한 매물 보기로 이동!')}>자세한 매물 보기</Button>
+          <Button onClick={() => alert('자세한 매물 보기로 이동!')}>자세한 매물 보기</Button> 
         </Content>
       </ReportContainer>
     </>

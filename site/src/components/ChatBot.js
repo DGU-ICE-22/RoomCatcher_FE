@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import NavigationBar from '../pages/NavigationBar';
-
 
 const StyledChatBot = styled.div`
   display: flex;
@@ -21,7 +20,7 @@ const StyledChatBot = styled.div`
     box-shadow: 0px 14px 24px rgba(0, 0, 0, 0.13);
     overflow: hidden;
     display: flex;
-    flex-direction: column; // 이 속성이 중요: 내부 요소들을 세로로 정렬합니다
+    flex-direction: column;
   }
 
   h1 {
@@ -33,9 +32,9 @@ const StyledChatBot = styled.div`
   .messages-list {
     padding: 20px;
     flex-grow: 1;
-    overflow-y: auto; // 스크롤 가능
+    overflow-y: auto;
     display: flex;
-    flex-direction: column; // 세로 방향으로 메시지 배열
+    flex-direction: column;
   }
 
   .bot, .user {
@@ -43,23 +42,23 @@ const StyledChatBot = styled.div`
     max-width: 80%;
     padding: 10px 15px;
     border-radius: 16px;
-    align-self: flex-start; // 'bot' 클래스는 항상 왼쪽
+    align-self: flex-start;
   }
 
   .user {
-    align-self: flex-end; // 'user' 클래스는 오른쪽
+    align-self: flex-end;
     background: #2979ff;
     color: #fff;
     border-radius: 16px 16px 0 16px;
   }
 
   .bot {
-  align-self: flex-start;
-  background: #f0f0f0;
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 16px 16px 16px 0;
-}
+    align-self: flex-start;
+    background: #f0f0f0;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 16px 16px 16px 0;
+  }
 
   .message-form {
     border-top: 1px solid #f0f0f0;
@@ -89,6 +88,7 @@ const StyledChatBot = styled.div`
 function ChatBot() {
   const [messages, setMessages] = useState([{ id: 1, text: "로딩 중...", sender: "bot" }]);
   const [inputValue, setInputValue] = useState("");
+  const messagesEndRef = useRef(null); // ref 객체를 생성 (스크롤 하단 고정 기능)
 
   useEffect(() => {
     const fetchInitialMessage = async () => {
@@ -111,7 +111,11 @@ function ChatBot() {
     };
 
     fetchInitialMessage();
-  }, []);  // 종속성 배열을 비워서 컴포넌트 마운트 시 1회만 실행
+  }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // 메시지 리스트의 끝으로 스크롤을 이동
+  }, [messages]);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -152,21 +156,18 @@ function ChatBot() {
     <NavigationBar></NavigationBar>
 
     <StyledChatBot>
-
       <div className='chat-box'>
-
         <h1>내 부동산 유형 분석하기</h1>
 
-        {/* 대화 내용 출력 부분 */}
         <div className='messages-list'>
           {messages.map(message => (
-              <div key={message.id} className={`bubble ${message.sender === 'bot' ? 'bot' : 'user'}`}>
-                {message.text}
-              </div>
+            <div key={message.id} className={`bubble ${message.sender === 'bot' ? 'bot' : 'user'}`}>
+              {message.text}
+            </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
-        
-        {/* 사용자 입력 부분 */}
+
         <div className="message-form">
           <input
             type="text"
