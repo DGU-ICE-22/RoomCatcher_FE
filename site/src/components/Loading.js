@@ -7,7 +7,7 @@ import 로고 from '../assets/images/로고.png';
 
 
 let Background = styled.div`
-position: absolute;
+  position: absolute;
   width: 100vw;
   height: 100vh;
   top: 0;
