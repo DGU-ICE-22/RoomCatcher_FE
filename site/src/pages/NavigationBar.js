@@ -4,7 +4,7 @@ import 로고 from '../assets/images/로고.png'; // 로고 이미지 경로를 
 import styled from 'styled-components';
 
 const StyledNavigationBar = styled(Navbar)`
-  background-color: #f8f9fa;
+  background-color: #F6F5F2;
   padding: 10px 0; // 상하 패딩 증가
 
   .navbar-brand, .nav-link {

@@ -1,7 +1,7 @@
 // Loading.js
 import React from 'react';
 import styled from 'styled-components';
-import Spinner from '../assets/images/Spinner.gif';
+import LoadingIcon from '../assets/icons/LoadingIcon.gif';
 import 로고 from '../assets/images/로고.png';
 
 
@@ -42,7 +42,7 @@ function Loading() {
     <>
     <LoadingImg><img style={{height: "3rem", marginRight: "1rem"}} src={로고}></img> RoomCatcher</LoadingImg>
     <Background>
-      <img src={Spinner} alt="로딩중" width="10%" />
+      <img src={LoadingIcon} alt="로딩중" width="10%" />
       <LoadingText>잠시만 기다려 주세요.<br/><br/>OO님의 유형을 분석 중이예요.</LoadingText>
   
     </Background>

@@ -6,7 +6,6 @@ import MyPage from './pages/MyPage';
 import ChatBot from './components/ChatBot.js';
 import CustomListings from './components/CustomListings';
 import AnalyticsReport from './components/AnalyticsReport';
-import LoadingChat from './components/LoadingChat.js';
 import Loading from './components/Loading.js';
 
 
@@ -21,7 +20,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/loadingchat" element={<LoadingChat />} />
           <Route path="/loading" element={<Loading />} />
           <Route path="/report" element={<AnalyticsReport />} />
           <Route path="/listings" element={<CustomListings />} />
