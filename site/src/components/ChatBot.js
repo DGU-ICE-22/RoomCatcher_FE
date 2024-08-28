@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import NavigationBar from '../pages/NavigationBar';
 import { useNavigate } from 'react-router-dom';
+import Loading from './Loading';
 
 const Container = styled.div`
   display: flex;
@@ -87,6 +88,7 @@ const StyledChatBot = styled.div`
 function ChatBot() {
   const [messages, setMessages] = useState([{ id: 1, text: "로딩 중...", sender: "bot" }]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
 
@@ -169,15 +171,18 @@ function ChatBot() {
         if (splitPoint !== -1) {
           await addMessageInIntervals([firstPart, secondPart]);
         } else {
-          // '예를 들어'가 없으면 전체 메시지를 한 번에 출력
           await addMessageInIntervals([fullMessage]);
         }
-
-        // 분석 메시지 확인 및 리포트 페이지로 네비게이션
+  
         if (response.data.response_message.includes("부동산 소비 유형을 알려드리기 위해 분석 중이에요!") && response.data.report_data) {
-          console.log("Navigating with data:", response.data.report_data);  // 디버깅 정보 출력
-
-          navigate('/report', {state: {reportData: response.data.report_data}});
+          // 모든 메시지가 화면에 표시된 후 5초를 기다립니다
+          await new Promise(resolve => setTimeout(resolve, 5000));
+  
+          setIsLoading(true); // 로딩 상태 활성화
+          setTimeout(() => { // 로딩 화면을 보여주고 나서 리포트 페이지로 네비게이션
+            navigate('/report', { state: { reportData: response.data.report_data } });
+            setIsLoading(false); // 로딩 상태 해제
+          }, 5000); // 예: 5초 동안 로딩 화면 표시
         }
   
       } catch (error) {
@@ -186,6 +191,7 @@ function ChatBot() {
       }
     }
   };
+  
 
 
 
@@ -199,6 +205,7 @@ function ChatBot() {
     <>
       <NavigationBar />
       <Container>
+      {isLoading && <Loading />}
         <GuidePanel>
           <h2>이용 가이드</h2>
           <p>챗봇 사용법을 소개합니다.</p>

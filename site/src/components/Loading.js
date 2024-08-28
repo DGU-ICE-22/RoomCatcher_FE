@@ -13,7 +13,7 @@ position: absolute;
   top: 0;
   left: 0;
   background: linear-gradient(to right, #eaf4f4, #f7ede2);
-  z-index: -1;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +29,7 @@ let LoadingImg = styled.h1`
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem; // 텍스트와의 간격 조정
+  z-index: 11;
 `
 
 let LoadingText = styled.div`
@@ -38,13 +39,15 @@ let LoadingText = styled.div`
 function Loading() {
 
   return (
-  <>
-  <LoadingImg><img style={{height: "3rem", marginRight: "1rem"}} src={로고}></img> RoomCatcher</LoadingImg>
-  <Background>
-    <img src={Spinner} alt="로딩중" width="10%" />
-    <LoadingText>잠시만요!<br/><br/>페이지를 이동 중이예요!</LoadingText>
-  </Background>
-  </>
+    <>
+    <LoadingImg><img style={{height: "3rem", marginRight: "1rem"}} src={로고}></img> RoomCatcher</LoadingImg>
+    <Background>
+      <img src={Spinner} alt="로딩중" width="10%" />
+      <LoadingText>잠시만 기다려 주세요.<br/><br/>OO님의 유형을 분석 중이예요.</LoadingText>
+  
+    </Background>
+  
+    </>
   );
 };
 
