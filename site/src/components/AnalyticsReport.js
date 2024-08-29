@@ -5,30 +5,29 @@ import NavigationBar from '../pages/NavigationBar';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const ReportContainer = styled.div`
-
   font-family: 'Roboto', sans-serif;
-
-  display: flex; // flexbox 사용
+  display: flex;
+  flex-wrap: wrap; // 필요에 따라 요소들을 다음 줄로 넘기기
   padding: 20px;
   background-color: #F6F5F2;
   border-radius: 8px;
   margin: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15); // 그림자를 좀 더 부드럽게 조정
-  height: 600px;
-  gap: 20px; // 컨테이너 사이의 간격 추가
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  min-height: 600px; // 최소 높이 설정
+  gap: 30px; // 간격 늘리기
 `;
 
 const ImageContainer = styled.div`
-  flex: 1; // 이미지 컨테이너의 너비를 적절히 조정
+  flex: 1; // 이미지 컨테이너의 너비 조정
   padding: 10px;
-  border: 1px solid #ddd; // 테두리 추가
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); // 가벼운 그림자 효과
-  border-radius: 8px; // 모서리 둥글게
-  overflow: hidden; // 이미지가 컨테이너를 넘지 않도록
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
   img {
     width: 100%;
     height: auto;
-    display: block; // 레이아웃 조정
+    display: block;
   }
 `;
 
@@ -41,9 +40,9 @@ const ContentContainer = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: center; // 세로 방향 중앙 정렬 유지
-  align-items: center; // 가로 방향 중앙 정렬 유지
-  position: relative; // 상대 위치 설정
+  justify-content: center;
+  align-items: center;
+  position: relative;
 `;
 
 const Header = styled.h1`
@@ -105,6 +104,7 @@ const Button = styled.button`
 
 
 const AnalyticsReport = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = useState({
     userTypeName: "",
@@ -156,6 +156,10 @@ const AnalyticsReport = () => {
     
   }, []);
 
+  const handleNavigate = () => {
+    navigate('/listings', { state: { data } });
+  };
+
   return (
     <>
       <NavigationBar />
@@ -172,7 +176,7 @@ const AnalyticsReport = () => {
                 <Tag key={index}>{tag}</Tag>
               ))}
             </div>
-            <Button onClick={() => alert('추천 매물 보러가기로 이동!')}>추천 매물 보러가기</Button>
+            <Button onClick={handleNavigate}>추천 매물 보러가기</Button>
           </Content>
         </ContentContainer>
       </ReportContainer>
