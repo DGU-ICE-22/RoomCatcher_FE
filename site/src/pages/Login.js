@@ -295,12 +295,42 @@ footer a {
 		const [loginAttempt, setLoginAttempt] = useState(null);
 		const navigate = useNavigate(); // 리다이렉트를 위한 훅 사용
 
+			// 회원 가입을 처리하는 함수
+		const handleRegister = async (event) => {
+		event.preventDefault(); // 폼 제출의 기본 이벤트를 차단
+
+		// 입력받은 데이터를 객체로 정리
+		const userData = {
+			name: event.target.name.value,
+			email: event.target.email.value,
+			password: event.target.password.value,
+			birth: event.target.birth.value,
+			sex: event.target.sex.value
+		};
+
+		try {
+			// 회원가입 API 요청
+			const response = await axios.post('http://13.125.189.241:8080/api/register', userData);
+			
+			if (response.data.code === 201) {
+				alert('회원가입에 성공하였습니다.');
+				console.log('회원 ID:', response.data.data.userId);
+				// 회원 가입 후 필요한 로직
+				navigate('/login');
+				}
+			} catch (error) {
+				console.error('회원 가입 실패:', error);
+				alert('회원 가입 실패: ' + error.response.data.message);
+			}
+		};
+
+
 		useEffect(() => {
 			const handleLogin = async () => {
 				if (!loginAttempt) return;
 	
 				try {
-					const response = await axios.post('http://13.125.189.241/api/login', {
+					const response = await axios.post('http://13.125.189.241:8080/api/login', {
 						email: loginAttempt.email,
 						password: loginAttempt.password
 					});
@@ -310,7 +340,7 @@ footer a {
 						localStorage.setItem('accessToken', response.data.data.accessToken);
 						localStorage.setItem('userId', response.data.data.userId);
 						console.log('토큰과 사용자 ID 저장됨');
-						navigate('/home');
+						navigate('/');
 					}
 				} catch (error) {
 					console.error('로그인 실패:', error);
@@ -353,7 +383,7 @@ footer a {
 	
 					{/* 회원가입 폼을 위한 컨테이너 */}
 					<div className="form-container sign-up-container">
-						<form>
+						<form onSubmit={handleRegister}>
 							<h1>Create Account</h1>
 							<div className="social-container">
 								<a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
@@ -361,13 +391,13 @@ footer a {
 								<a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
 							</div>
 							<span>or use your email for registration</span>
-							<input type="text" placeholder="Name" />
-							<input type="email" placeholder="Email" />
-							<input type="password" placeholder="Password" />
+							<input type="text"  name="name" placeholder="Name" required />
+							<input type="email" name="email" placeholder="Email" required />
+							<input type="password" name="password" placeholder="Password" required />
 							<div className="identity-inputs">
-								<input type="YYMMDD" placeholder="YYMMDD" id="생년월일"/>
+								<input  type="text" name="birth" placeholder="YYMMDD" required id="생년월일" />
 								<span style={{fontSize : "20px"}}>-</span>
-								<input type="password" placeholder="*" title="주민등록번호 7번째 자리를 입력하세요." id="주민번호앞자리"/>
+								<input type="password" placeholder="*" title="주민등록번호 7번째 자리를 입력하세요." id="주민번호앞자리" name="sex" required/>
 							</div>
 							<button type="submit" onClick={handleSignUpClick}>Sign Up</button>
 						</form>
