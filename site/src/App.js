@@ -7,6 +7,7 @@ import ChatBot from './components/ChatBot.js';
 import CustomListings from './components/CustomListings';
 import AnalyticsReport from './components/AnalyticsReport';
 import Loading from './components/Loading.js';
+import DetailPage from './components/DetailPage.js';
 
 
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/loading" element={<Loading />} />
           <Route path="/report" element={<AnalyticsReport />} />
           <Route path="/listings" element={<CustomListings />} />
+          <Route path="/listings/:id" element={<DetailPage />} />
         </Routes>
 
       </div>

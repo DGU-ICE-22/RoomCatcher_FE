@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import axios from 'axios';
 import NavigationBar from '../pages/NavigationBar';
 import { useNavigate, useLocation } from 'react-router-dom';
+import compony from '../assets/icons/compony.gif';
+import culture from '../assets/icons/culture.gif';
+import nature from '../assets/icons/nature.gif';
+import option from '../assets/icons/options.gif';
+import free from '../assets/icons/free.gif';
+import structure from '../assets/icons/structure.gif';
+import traffic from '../assets/icons/traffic.gif';
+import student from '../assets/icons/student.gif';
+
 
 const ReportContainer = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -25,9 +34,10 @@ const ImageContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   img {
-    width: 100%;
+    width: 70%;
     height: auto;
     display: block;
+    margin: 0 auto; // 이미지를 컨테이너 내에서 중앙에 위치시킵니다
   }
 `;
 
@@ -125,7 +135,7 @@ const AnalyticsReport = () => {
           tags: location.state.reportData.user_tags,
           typeName: location.state.reportData.userTypeName,
         }, 
-        { withCredentials: true,
+        { 
           headers: {
             "Content-Type": "application/json",
             "Authorization": `${accessToken}`
@@ -163,12 +173,34 @@ const AnalyticsReport = () => {
     navigate('/listings', { state: { data } });
   };
 
+  const getImageSrc = (userTypeName) => {
+    
+    switch (userTypeName) {
+      case '가격 중시 가성비형':
+        return free;
+      case '교통편이나 회사 근처를 선호하는 교통 중시형':
+        return traffic;
+      case '집의 구조, 크기, 방향 등을 중요시하는 구조중시형':
+        return structure;
+      case '대학 주변을 원하는 대학생 유형':
+        return student;
+      case '감성있는 동네(성수, 망원, 해방촌, 홍대 등)를 선호하는 유형':
+        return culture;
+      case '세탁기, 에어컨, 옷장 등의 옵션을 선호하는 옵션 중시형':
+        return option;
+      case '공원, 강, 하천, 산 주변에 있기를 원하는 자연인 유형':
+        return nature;
+      case '사당, 여의도, 시청, 용산, 강남, 분당, 판교 등 회사가 많은 지역을 선호하는 직장인 유형':
+        return compony; 
+    }
+  };
+
   return (
     <>
       <NavigationBar />
       <ReportContainer>
         <ImageContainer>
-          <img src="path_to_your_image.jpg" alt="Descriptive Image"/>
+          <img src={getImageSrc(data.userTypeName)} alt="Descriptive Image"/>
         </ImageContainer>
         <ContentContainer>
           <Header>{data.userTypeName}</Header>
