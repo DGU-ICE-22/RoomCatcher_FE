@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
@@ -16,7 +16,8 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="" element={<Home />} />
+          <Route path="/" element={<Navigate replace to="/login" />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/chatbot" element={<ChatBot />} />

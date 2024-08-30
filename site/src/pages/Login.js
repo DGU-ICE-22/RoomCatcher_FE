@@ -339,8 +339,9 @@ footer a {
 					if (response.data.code === 201) {
 						localStorage.setItem('accessToken', response.data.data.accessToken);
 						localStorage.setItem('userId', response.data.data.userId);
-						console.log('토큰과 사용자 ID 저장됨');
-						navigate('/');
+						localStorage.setItem('userName', response.data.data.userName);
+            console.log('토큰, 사용자 ID, 이메일 저장됨');
+						navigate('/home');
 					}
 				} catch (error) {
 					console.error('로그인 실패:', error);

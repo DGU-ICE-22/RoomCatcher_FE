@@ -117,6 +117,8 @@ const AnalyticsReport = () => {
 
     //fetchData 함수
     const fetchData = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+
       try {
         //location.state.reportData에서 받은 userTypeName과 user_tags를 바탕으로 분석 결과를 요청
         const response = await axios.post('http://13.125.189.241/api/report', {
@@ -125,7 +127,7 @@ const AnalyticsReport = () => {
         }, {
           headers: {
             'Content-Type': 'application/json',
-            "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjQxNTI1NDUsImV4cCI6MTcyNTM2MjE0NSwidXNlcklkIjoxMH0.xeIJqa4okBd0RZ_B2hgHu7qEQVrYbjs2ex_n3YPaZj2ofqWVfo5pyxgVTj6XjXBWFopwDrml3an_1whjaYZkPQ"
+            "Authorization": `Bearer ${accessToken}`
           }
         });
         if (response) {

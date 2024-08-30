@@ -53,7 +53,7 @@ const NavigationBar = () => {
   return (
     <StyledNavigationBar expand="lg">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/home">
             <img src={로고} alt="RoomCatcher Logo" style={{ height: '30px', width: '22px', marginRight: '5px' }} />
             RoomCatcher
           </Navbar.Brand>

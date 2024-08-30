@@ -88,7 +88,6 @@ const StyledChatBot = styled.div`
 function ChatBot() {
   const [messages, setMessages] = useState([{ id: 1, text: "로딩 중...", sender: "bot" }]);
   const [inputValue, setInputValue] = useState("");
-  const [userName, setUserName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
@@ -112,38 +111,14 @@ function ChatBot() {
     });
   };
 
-  //userName 뽑아내기
-  useEffect(() => {
-    async function fetchUserName() {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        console.error('No access token available');
-        return;
-      }
-  
-      try {
-        // 사용자 정보를 가져오는 API 요청
-        const userInfoResponse = await axios.get('http://127.0.0.1:8000/api/chat', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-        // 응답에서 사용자 이름을 추출하여 상태에 저장
-        setUserName(userInfoResponse.data.user_name);
-      } catch (error) {
-        console.error('Failed to fetch user info:', error);
-      }
-    }
-  
-    fetchUserName();
-  }, []);
 
   useEffect(() => {
     async function fetchInitialMessage() {
       
-       // 로컬 스토리지에서 가져온 accessToken
+       // 로컬 스토리지에서 가져온 정보들
       const accessToken = localStorage.getItem('accessToken');
+      const accessName = localStorage.getItem('userName');
+
       if (!accessToken) {
         console.error('No access token available');
         return;
@@ -152,7 +127,7 @@ function ChatBot() {
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/chat', {
           request_message: "",
-          user_name: userName
+          user_name: accessName
         }, {
           withCredentials: true,
           headers: {
@@ -162,12 +137,13 @@ function ChatBot() {
         });
         setMessages([{ id: 1, text: response.data.response_message || "반갑습니다! 무엇을 도와드릴까요?", sender: "bot" }]);
       } catch (error) {
+        console.log(accessToken);
         console.error('There was an error!', error);
         setMessages([{ id: 1, text: "오류가 발생했습니다.", sender: "bot" }]);
       }
     }
     fetchInitialMessage();
-  }, [userName]);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -186,12 +162,13 @@ function ChatBot() {
     if (inputValue.trim()) {
       const newMessage = { id: messages.length + 1, text: inputValue, sender: "user" };
       setMessages([...messages, newMessage]);
-      const accessToken = localStorage.getItem('accessToken'); 
+      const accessToken = localStorage.getItem('accessToken');
+      const accessName = localStorage.getItem('userName');
 
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/chat', {
           request_message: inputValue,
-          user_name: userName
+          user_name: accessName
         }, {
           withCredentials: true,
           headers: {
