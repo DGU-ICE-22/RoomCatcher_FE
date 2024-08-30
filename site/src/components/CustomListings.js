@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import ListingCard from './ListingCard';
+import NavigationBar from '../pages/NavigationBar';
+
 
 const CustomListings = () => {
   const location = useLocation();
@@ -17,18 +20,17 @@ const CustomListings = () => {
       }
 
       try {
-        const response = await axios.get('http://13.125.189.241/api/recommend', {
+        const response = await axios.get('http://13.125.189.241:8080/api/recommend', {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          },
-          params: {
-            userTags: location.state?.data?.user_tags
+            'Authorization': `${accessToken}`
           }
         });
 
-        if (response.data && response.data.productInfo) {
-          setListings(response.data.productInfo);
+        console.log('Response:', response);
+
+        if (response.data && response.data.productList) {
+          setListings(response.data.productList);
         } else {
           throw new Error('Invalid data');
         }
@@ -51,13 +53,8 @@ const CustomListings = () => {
 
   return (
     <div>
-      {listings.map((listing, index) => (
-        <div key={index}>
-          <h3>{listing.Name}</h3>
-          <p>{listing.Price}원</p>
-          <p>{listing.location}</p>
-        </div>
-      ))}
+      <NavigationBar></NavigationBar>
+      {listings.map(listing => <ListingCard key={listing.id} listing={listing} />)}
     </div>
   );
 };

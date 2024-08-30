@@ -121,13 +121,14 @@ const AnalyticsReport = () => {
 
       try {
         //location.state.reportData에서 받은 userTypeName과 user_tags를 바탕으로 분석 결과를 요청
-        const response = await axios.post('http://13.125.189.241/api/report', {
-          userTypeName: location.state.reportData.userTypeName,
-          userTags: location.state.reportData.user_tags
-        }, {
+        const response = await axios.post('http://13.125.189.241:8080/api/report', {
+          tags: location.state.reportData.user_tags,
+          typeName: location.state.reportData.userTypeName,
+        }, 
+        { withCredentials: true,
           headers: {
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${accessToken}`
+            "Content-Type": "application/json",
+            "Authorization": `${accessToken}`
           }
         });
         if (response) {

@@ -37,13 +37,14 @@ let LoadingText = styled.div`
   text-align: center;`
 
 function Loading() {
+  const accessName = localStorage.getItem('userName');
 
   return (
     <>
     <LoadingImg><img style={{height: "3rem", marginRight: "1rem"}} src={로고}></img> RoomCatcher</LoadingImg>
     <Background>
       <img src={LoadingIcon} alt="로딩중" width="10%" />
-      <LoadingText>잠시만 기다려 주세요.<br/><br/>OO님의 유형을 분석 중이예요.</LoadingText>
+      <LoadingText>잠시만 기다려 주세요.<br/><br/>{accessName}님의 유형을 분석 중이예요.</LoadingText>
   
     </Background>
   
