@@ -126,7 +126,7 @@ const worksData = [
         iconClass: 카드3,
         title: "추천 매물 보러가기",
         description: "당신의 취향과 조건을 완벽히 만족시키는 매물을 지금 확인해보세요.",
-        link: "#"
+        link: "customlistings"
     }
 ];
 
@@ -137,6 +137,9 @@ const Works = () => {
     
       if (work.title === "내 부동산 유형 분석하기") {
         navigate('/chatbot');
+      }
+      else if (work.title === "추천 매물 보러가기") {
+        navigate('/listings');
       }
       else {
         alert("준비중입니다.");
