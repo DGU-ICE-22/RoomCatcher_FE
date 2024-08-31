@@ -4,6 +4,8 @@ import axios from 'axios';
 import NavigationBar from '../pages/NavigationBar';
 import { useNavigate } from 'react-router-dom';
 import Loading from './Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +25,24 @@ const GuidePanel = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
+`;
+
+const GuideSection = styled.div`
+  margin-bottom: 20px;
+  padding-bottom: 20px; // 패딩 추가로 내용과 선 사이 거리 조절
+  border-bottom: 1px solid #e0e0e0; // 하단 경계선 추가
+`;
+
+const GuideTitle = styled.h2`
+  cursor: pointer;
+  &:hover {
+    color: #005f73;
+  }
+`;
+
+const GuideContent = styled.div`
+  display: ${props => props.isOpen ? 'block' : 'none'};
+  padding: 10px 0;
 `;
 
 const StyledChatBot = styled.div`
@@ -91,6 +111,10 @@ function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
+
+  const [isGuideOpen, setGuideOpen] = useState(false);
+  const [isFaqOpen, setFaqOpen] = useState(false);
+  
 
   // 메시지를 지정된 간격으로 추가하는 함수
   const addMessageInIntervals = (messagesArray) => {
@@ -221,11 +245,19 @@ function ChatBot() {
       <Container>
       {isLoading && <Loading />}
         <GuidePanel>
-          <h2>이용 가이드</h2>
-          <p>챗봇 사용법을 소개합니다.</p>
-          <h2>FAQ</h2>
-          <p>자주 묻는 질문과 답변을 확인하세요.</p>
-        </GuidePanel>
+        <GuideSection>
+        <GuideTitle onClick={() => setGuideOpen(!isGuideOpen)}>이용 가이드<FontAwesomeIcon icon={faQuestionCircle} aria-hidden="true" style={{ fontSize: '15px', verticalAlign: 'top' }}/></GuideTitle>
+          <GuideContent isOpen={isGuideOpen}>
+            <p>챗봇 사용법을 소개합니다. 여기에서 기본적인 명령어와 상호작용 방법을 배울 수 있습니다.</p>
+          </GuideContent>
+        </GuideSection>
+        <GuideSection>
+          <GuideTitle onClick={() => setFaqOpen(!isFaqOpen)}>FAQ</GuideTitle>
+          <GuideContent isOpen={isFaqOpen}>
+            <p>자주 묻는 질문과 답변을 확인하세요. 이 섹션에서는 사용자들이 자주 물어보는 질문들을 모아두었습니다.</p>
+          </GuideContent>
+        </GuideSection>
+      </GuidePanel>
         <StyledChatBot>
           <div className='chat-box'>
             <div className='messages-list'>

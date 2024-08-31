@@ -97,20 +97,26 @@ const Tag = styled.span`
 const Button = styled.button`
   padding: 10px 20px;
   color: white;
-  border: 1px solid #FA8072;
-	background-color: #FA8072;
+  border: none;
+  background-color: #FA8072;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
   margin-left: auto;
   display: block;
   font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // 그림자 추가
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; // 전환 효과 추가
+
+  &:hover {
+    background-color: #E06C5D; // 마우스 오버 시 진한 색상
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); // 그림자를 더 크게
+  }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.95); // 클릭 시 축소 효과
   }
 `;
-
 
 
 const AnalyticsReport = () => {

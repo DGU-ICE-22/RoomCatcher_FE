@@ -4,14 +4,20 @@ import 로고 from '../assets/images/로고.png'; // 로고 이미지 경로를 
 import styled from 'styled-components';
 
 const StyledNavigationBar = styled(Navbar)`
-
-  font-family: 'Montserrat', sans-serif; // 기본 폰트로 설정
-  background-color: #F6F5F2;
-  padding: 10px 0; // 상하 패딩 증가
+  font-family: 'Montserrat', sans-serif;
+  background-color: rgba(246, 245, 242, 0.95); // 배경색에 약간의 투명도 추가
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // 그림자 추가
 
   .navbar-brand, .nav-link {
-    font-size: 25px; // 폰트 크기 증가
-    margin-right: 40px; // 각 링크의 우측 마진 증가
+    font-size: 18px; // 폰트 크기 조정
+    margin-right: 20px; // 우측 마진 조정
+    color: #333; // 색상 설정
+    transition: color 0.3s; // 색상 변화에 애니메이션 효과 추가
+
+    &:hover {
+      color: #0056b3; // 호버 시 색상 변경
+    }
   }
 
   .navbar-toggle {
@@ -19,23 +25,27 @@ const StyledNavigationBar = styled(Navbar)`
   }
 
   .navbar-collapse {
-    justify-content: flex-end; // 모든 내용을 오른쪽으로 밀어내기
+    justify-content: flex-end;
   }
 
   .ms-auto {
-    margin-left: auto; // 오른쪽 정렬을 강제함
+    margin-left: auto;
   }
 
   .dropdown-toggle {
-    margin-right: 20px; // 드롭다운 토글의 우측 마진 증가
+    margin-right: 20px;
   }
 
   .nav-dropdown {
     .nav-link {
-      padding: 8px 12px; // 드롭다운 내 아이템의 패딩 조정
+      padding: 8px 12px;
+      &:hover {
+        background-color: #f8f9fa; // 드롭다운 내 아이템 호버 시 배경색 변경
+      }
     }
   }
 `;
+
 
 const NavigationBar = () => {
 
