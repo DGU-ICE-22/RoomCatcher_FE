@@ -43,17 +43,18 @@ const ImageContainer = styled.div`
 
 const ContentContainer = styled.div`
   flex: 1.5;
-  padding: 20px;
+  padding: 30px; /* 패딩을 늘림 */
   background-color: #FFF;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border-radius: 8px;
+  border: none; /* 테두리 제거 */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05); /* 그림자 부드럽게 */
+  border-radius: 16px; /* 둥근 모서리를 더 크게 */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
 `;
+
 
 const Header = styled.h1`
   position: absolute;
